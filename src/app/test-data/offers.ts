@@ -14,7 +14,7 @@ export const offers: IOffer[] = [
   {
     title: " Wheel of Winz",
     description: "Spin the wheel to win up to €15,000 weekly",
-    imgUrl: "assets/valentines_offer.png.png"
+    imgUrl: "assets/valentines_offer.png"
   }
 ]
 

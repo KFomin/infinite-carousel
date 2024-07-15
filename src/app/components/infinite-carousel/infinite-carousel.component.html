@@ -1,4 +1,22 @@
 <div class="carousel">
-  <div class="loading-carousel">
+  <div [ngSwitch]="offers.length > 0">
+
+    <span *ngSwitchCase="true">
+      <div class="loaded-carousel" *ngFor="let item of offers">
+          <h2>{{ item.title }}</h2>
+          <p>{{ item.description }}</p>
+          <span class="offer-background">
+            <img alt="{{ item.title }}"
+                 fill
+                 ngSrc="{{item.imgUrl}}">
+          </span>
+      </div>
+    </span>
+
+    <span *ngSwitchCase="false">
+      <div class="loading-carousel">
+      </div>
+    </span>
+
   </div>
 </div>
