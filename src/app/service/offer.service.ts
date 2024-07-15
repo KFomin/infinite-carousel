@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {delay, map, Observable, of} from "rxjs";
+import {delay, interval, map, Observable, of} from "rxjs";
 import {IOffer} from "../data/IOffer";
 import {offers} from "../test-data/offers";
 

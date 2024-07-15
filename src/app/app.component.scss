@@ -3,15 +3,21 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  :first-child {
+    margin-bottom: 0;
+  }
 }
 
 .placeholders {
   background: white;
   padding: 5px;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
+  margin-left: 4px;
+  margin-right: 4px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 
   span {
-    background: white;
+    background: none;
   }
 }

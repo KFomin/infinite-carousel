@@ -6,7 +6,8 @@
         <p>{{ offers[currentOfferIndex].description }}</p>
         <img alt="{{ offers[currentOfferIndex].title }}"
              fill
-             ngSrc="{{offers[currentOfferIndex].imgUrl}}">
+             ngSrc="{{offers[currentOfferIndex].imgUrl}}"
+             priority>
     </span>
 
     <span *ngSwitchCase="false">
