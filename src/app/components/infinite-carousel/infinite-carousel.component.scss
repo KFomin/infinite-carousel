@@ -1,3 +1,27 @@
 * {
+  height: 50vh;
   margin: 5px 0;
 }
+
+.loading-carousel {
+  background: linear-gradient(270deg, #1ea17f, #d4e8e3);
+  background-size: 400% 400%;
+
+  -webkit-animation: LoadingAnimation 4s ease infinite;
+  -moz-animation: LoadingAnimation 4s ease infinite;
+  animation: LoadingAnimation 4s ease infinite;
+}
+
+@-webkit-keyframes LoadingAnimation {
+  0% {
+    background-position: 0 50%
+  }
+  50% {
+    background-position: 100% 50%
+  }
+  100% {
+    background-position: 0 50%
+  }
+}
+
+/* :)) animation stolen from https://www.gradient-animator.com/ */
