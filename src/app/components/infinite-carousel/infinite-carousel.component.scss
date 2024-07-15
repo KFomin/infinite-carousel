@@ -1,4 +1,4 @@
-$max-height: 50vh;
+$max-height: 40vh;
 $max-width: 600px;
 
 * {
@@ -7,16 +7,26 @@ $max-width: 600px;
 
 .carousel {
   margin: 5px 0;
-
 }
 
 .loaded-carousel {
   position: relative;
+  max-width: $max-width;
+
+  h2, p {
+    position: relative;
+    z-index: 1;
+    height: auto;
+    background: rgba(255, 255, 255, 0.5);;
+  }
+
+  img {
+    min-height: $max-height;
+    z-index: 0;
+  }
 }
 
 .offer-background {
-  max-height: $max-height;
-  max-width: $max-width;
   margin-left: auto;
   margin-right: auto;
   object-fit: cover;

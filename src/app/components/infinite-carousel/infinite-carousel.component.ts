@@ -17,6 +17,7 @@ import {NgForOf, NgOptimizedImage, NgSwitch, NgSwitchCase} from "@angular/common
 })
 export class InfiniteCarouselComponent implements OnInit {
   offers: IOffer[] = [];
+  currentOfferIndex: number = 0;
 
   constructor(private offerService: OfferService) {
   }
