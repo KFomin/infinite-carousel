@@ -1,0 +1,16 @@
+* {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.placeholders {
+  background: white;
+  padding: 5px;
+  margin-bottom: 5px;
+
+  span {
+    background: white;
+  }
+}
