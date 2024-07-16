@@ -4,6 +4,7 @@ import {OfferService} from "../../service/offer.service";
 import {NgForOf, NgOptimizedImage, NgSwitch, NgSwitchCase} from "@angular/common";
 import {interval, Observable} from "rxjs";
 import {offers} from "../../test-data/offers";
+import {SlideComponent} from "../slide/slide.component";
 
 @Component({
   selector: 'app-infinite-carousel',
@@ -12,14 +13,19 @@ import {offers} from "../../test-data/offers";
     NgOptimizedImage,
     NgForOf,
     NgSwitch,
-    NgSwitchCase
+    NgSwitchCase,
+    SlideComponent
   ],
   templateUrl: './infinite-carousel.component.html',
   styleUrl: './infinite-carousel.component.scss'
 })
 export class InfiniteCarouselComponent implements OnInit {
   offers: IOffer[] = [];
+
   currentOfferIndex: number = 0;
+  previousOfferIndex: number = this.currentOfferIndex - 1;
+  nextOfferIndex: number = this.currentOfferIndex + 1;
+
   autoSlideInterval: Observable<number> = interval(10000);
 
   constructor(private offerService: OfferService) {

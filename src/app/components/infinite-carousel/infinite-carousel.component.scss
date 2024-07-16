@@ -1,6 +1,3 @@
-$max-height: 40vh;
-$max-width: 600px;
-
 * {
   height: $max-height;
 }
@@ -10,28 +7,7 @@ $max-width: 600px;
 }
 
 .loaded-carousel {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  color: rgb(30, 30, 30);
-  font-weight: 600;
-  max-width: $max-width;
 
-  h2, p {
-    position: relative;
-    z-index: 1;
-    height: auto;
-    background: rgba(255, 255, 255, 0.5);
-    margin: 8px;
-    padding: 4px;
-    border-radius: 2px;
-  }
-
-  img {
-    min-height: $max-height;
-    z-index: 0;
-  }
 }
 
 .loading-carousel {
@@ -55,4 +31,4 @@ $max-width: 600px;
   }
 }
 
-/* :)) animation stolen from https://www.gradient-animator.com/ */
+/* :)) gradient animation stolen from https://www.gradient-animator.com/ */

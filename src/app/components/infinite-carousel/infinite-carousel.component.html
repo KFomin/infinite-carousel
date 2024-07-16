@@ -2,12 +2,7 @@
   <div [ngSwitch]="offers.length > 0">
 
     <span *ngSwitchCase="true" class="loaded-carousel">
-        <h2>{{ offers[currentOfferIndex].title }}</h2>
-        <p>{{ offers[currentOfferIndex].description }}</p>
-        <img alt="{{ offers[currentOfferIndex].title }}"
-             fill
-             ngSrc="{{offers[currentOfferIndex].imgUrl}}"
-             priority>
+        <app-slide [offer]="offers[currentOfferIndex]"></app-slide>
     </span>
 
     <span *ngSwitchCase="false">
