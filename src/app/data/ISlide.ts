@@ -6,4 +6,5 @@ export interface ISlide {
   description2: string;
   backgroundImage: string;
   mainImage: string;
+  buttonLabel: string;
 }

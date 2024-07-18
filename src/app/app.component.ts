@@ -17,22 +17,15 @@ import {of} from "rxjs";
 export class AppComponent implements OnInit {
   constructor(private offerService: OfferService) {
   }
+
   carouselData: ISlide[] = []
   loading: boolean = true;
 
   ngOnInit(): void {
     this.offerService.getOffers().then((offers: IOffer[]) => {
       this.loading = false
-      this.carouselData = offers.map((offer: IOffer) => {
-        return {
-          id: offer.id,
-          title: offer.title,
-          description1: offer.description1,
-          highlightedDescription1: offer.offer,
-          description2: offer.description2,
-          backgroundImage: offer.backgoundImage,
-          mainImage: offer.mainImage,
-        }
+      this.carouselData = offers.map((offer: IOffer): ISlide => {
+        return this.offerService.toSlideData(offer)
       });
     })
   }

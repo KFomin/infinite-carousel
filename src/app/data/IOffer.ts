@@ -6,4 +6,5 @@ export interface IOffer {
   description2: string;
   mainImage: string;
   backgoundImage: string;
+  action: string
 }

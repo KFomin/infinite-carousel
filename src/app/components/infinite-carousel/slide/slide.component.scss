@@ -40,11 +40,12 @@
   .button {
     border-radius: 25px;
     height: 45px;
-    width: 35%;
+    width: auto;
+    text-align: center;
     background: none;
     border: 2px solid white;
     transition: 0.1s;
-    padding: 2px 20px;
+    padding: 6px 20px;
     margin: 20px;
     color: white;
     font-size: 15px;

@@ -7,7 +7,8 @@ export const offers: IOffer[] = [
     description2: ": daily rakeback, weekly cashback and level-up bonuses",
     mainImage: "assets/winzup_mob.png",
     backgoundImage: "assets/winzup-bg-mob.webp",
-    offer: "35% in rewards"
+    offer: "35% in rewards",
+    action: "Join now"
   },
   { id: "2",
     title: " Valentine's Fortune Drops",
@@ -15,7 +16,8 @@ export const offers: IOffer[] = [
     description2: "!",
     mainImage: "assets/ValentinesFortuneDrops_mob-pic.png",
     backgoundImage: "assets/ValentinesFortuneDrops_mob-bg.png",
-    offer: "€30,000"
+    offer: "€30,000",
+    action: "Learn more"
   },
   { id: "3",
     title: " Wheel of Winz",
@@ -23,7 +25,8 @@ export const offers: IOffer[] = [
     description2: "weekly",
     mainImage: "assets/wheel-mob.png",
     backgoundImage: "assets/wheel-mob-bg.webp",
-    offer: "€15,000"
+    offer: "€15,000",
+    action: "Spin now"
   }
 ]
 
