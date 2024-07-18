@@ -1,8 +1,14 @@
-<span class="slide">
+<div class="slide" [ngStyle]="{ 'background-image': 'url(' + offer.imgUrl + ')'}">
   <h2>{{ offer.title }}</h2>
-  <p>{{ offer.description }}</p>
-  <img alt="{{ offer.title }}"
-       fill
-       ngSrc="{{offer.imgUrl}}"
-       priority>
-</span>
+  <div class="bottom-slider">
+    <div class="button-group">
+      <input type="button" class="slider-button" (click)="handleClick()" value="Learn More">
+      <div class="sub-image" [ngStyle]="{ 'background-image': 'url(' + offer.subImgUrl + ')'}"></div>
+    </div>
+    <p>{{ offer.description }}</p>
+  </div>
+<!--  <img alt="{{ offer.title }}"-->
+<!--       fill-->
+<!--       ngSrc="{{offer.imgUrl}}"-->
+<!--       priority>-->
+</div>

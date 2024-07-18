@@ -36,7 +36,7 @@ export class InfiniteCarouselComponent implements OnInit {
 
   interval = setInterval(() => {
     this.moveRight()
-  }, 10000)
+  }, 99999999)
 
   pauseInterval: () => void = () => {
     clearInterval(this.interval);
