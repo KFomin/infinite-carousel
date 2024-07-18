@@ -1,14 +1,10 @@
 <div class="slide" [ngStyle]="{ 'background-image': 'url(' + offer.imgUrl + ')'}">
-  <h2>{{ offer.title }}</h2>
-  <div class="bottom-slider">
-    <div class="button-group">
-      <input type="button" class="slider-button" (click)="handleClick()" value="Learn More">
-      <div class="sub-image" [ngStyle]="{ 'background-image': 'url(' + offer.subImgUrl + ')'}"></div>
-    </div>
-    <p>{{ offer.description }}</p>
+  <div class="sub-image" [ngStyle]="{ 'background-image': 'url(' + offer.subImgUrl + ')'}"></div>
+  <h2 class="title">{{ offer.title }}</h2>
+  <div class="description">
+    <ng-container> {{ offer.description1 }}</ng-container>
+    <span class="offer">{{ offer.offer }}</span>
+    <ng-container>{{ offer.description2 }}</ng-container>
   </div>
-<!--  <img alt="{{ offer.title }}"-->
-<!--       fill-->
-<!--       ngSrc="{{offer.imgUrl}}"-->
-<!--       priority>-->
+  <input type="button" class="button" (click)="handleClick()" value="Join now">
 </div>

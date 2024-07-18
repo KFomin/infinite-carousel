@@ -15,6 +15,7 @@ import {IOffer} from "../../data/IOffer";
 export class SlideComponent {
   @Input({required: true}) offer!: IOffer;
 
+
   handleClick:()=>void=(()=>{
     console.log("click");
   })

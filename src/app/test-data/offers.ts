@@ -3,21 +3,27 @@ import {IOffer} from "../data/IOffer";
 export const offers: IOffer[] = [
   {
     title: "WinzUp Loyalty Program",
-    description: "Get up to 35% in rewards: daily rakeback, weekly cashback and level-up bonuses",
-    subImgUrl : "assets/valentines_offer.png",
-    imgUrl: "assets/loyalty_bonuses_offer.png"
+    description1: "Get up to",
+    description2: ": daily rakeback, weekly cashback and level-up bonuses",
+    subImgUrl: "assets/winzup_mob.png",
+    imgUrl: "assets/winzup-bg-mob.webp",
+    offer: "35% in rewards"
   },
   {
     title: " Valentine's Fortune Drops",
-    description: "Trigger random prizes and win a share of €30,000!",
-    subImgUrl: "assets/loyalty_bonuses_offer.png",
-    imgUrl: "assets/lucky_wheel_offer.png"
+    description1: "Trigger random prizes and win a share of",
+    description2: "!",
+    subImgUrl: "assets/ValentinesFortuneDrops_mob-pic.png",
+    imgUrl: "assets/ValentinesFortuneDrops_mob-bg.png",
+    offer: "€30,000"
   },
   {
     title: " Wheel of Winz",
-    description: "Spin the wheel to win up to €15,000 weekly",
-    subImgUrl: "assets/lucky_wheel_offer.png",
-    imgUrl: "assets/valentines_offer.png"
+    description1: "Spin the wheel to win up to",
+    description2: "weekly",
+    subImgUrl: "assets/wheel-mob.png",
+    imgUrl: "assets/wheel-mob-bg.webp",
+    offer: "€15,000"
   }
 ]
 
