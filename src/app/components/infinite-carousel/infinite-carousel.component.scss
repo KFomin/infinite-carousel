@@ -1,3 +1,6 @@
+$max-height: 40vh;
+$max-width: 600px;
+
 * {
   height: $max-height;
 }
@@ -6,8 +9,10 @@
   margin: 16px 0;
 }
 
-.loaded-carousel {
 
+.carousel-container {
+  position: relative;
+  overflow: hidden;
 }
 
 .loading-carousel {

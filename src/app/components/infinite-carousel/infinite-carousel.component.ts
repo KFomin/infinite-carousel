@@ -3,7 +3,6 @@ import {IOffer} from "../../data/IOffer";
 import {OfferService} from "../../service/offer.service";
 import {NgForOf, NgOptimizedImage, NgSwitch, NgSwitchCase} from "@angular/common";
 import {interval, Observable} from "rxjs";
-import {offers} from "../../test-data/offers";
 import {SlideComponent} from "../slide/slide.component";
 
 @Component({
@@ -22,11 +21,7 @@ import {SlideComponent} from "../slide/slide.component";
 export class InfiniteCarouselComponent implements OnInit {
   offers: IOffer[] = [];
 
-  currentOfferIndex: number = 0;
-  previousOfferIndex: number = this.currentOfferIndex - 1;
-  nextOfferIndex: number = this.currentOfferIndex + 1;
-
-  autoSlideInterval: Observable<number> = interval(10000);
+  autoSlideInterval: Observable<number> = interval(1500);
 
   constructor(private offerService: OfferService) {
   }
@@ -35,11 +30,10 @@ export class InfiniteCarouselComponent implements OnInit {
   ngOnInit(): void {
 
     this.autoSlideInterval.subscribe(() => {
-        if (offers[this.currentOfferIndex+1]) {
-          this.currentOfferIndex = this.currentOfferIndex+1;
-        } else {
-          this.currentOfferIndex = 0;
-        }
+      let firstOffer = this.offers.shift();
+      if (firstOffer !== undefined) {
+        this.offers.push(firstOffer);
+      }
     });
 
     this.offerService.getData().subscribe(data => this.offers = data);

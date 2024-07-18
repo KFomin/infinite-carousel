@@ -1,8 +1,12 @@
 <div class="carousel">
   <div [ngSwitch]="offers.length > 0">
 
-    <span *ngSwitchCase="true" class="loaded-carousel">
-        <app-slide [offer]="offers[currentOfferIndex]"></app-slide>
+    <span *ngSwitchCase="true">
+      <div class="carousel-container">
+        <div *ngFor="let offer of offers">
+          <app-slide [offer]="offer"></app-slide>
+        </div>
+      </div>
     </span>
 
     <span *ngSwitchCase="false">
