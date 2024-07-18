@@ -1,7 +1,7 @@
 <div class="carousel">
-  <div [ngSwitch]="offers.length > 0">
+  <div [ngSwitch]="this.loading">
 
-    <span *ngSwitchCase="true">
+    <span *ngSwitchCase="false">
       <div class="carousel-container">
         <div (touchstart)="touchStarted($event)"
              (touchmove)="touchMoved($event)"
@@ -15,7 +15,7 @@
       </div>
     </span>
 
-    <span *ngSwitchCase="false">
+    <span *ngSwitchCase="true">
       <div class="loading-carousel">
         <div class="spinner"></div>
       </div>

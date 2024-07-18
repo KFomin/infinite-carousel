@@ -21,8 +21,8 @@ import {SlideComponent} from "../slide/slide.component";
 export class InfiniteCarouselComponent implements OnInit {
   constructor(private offerService: OfferService) {
   }
-
   offers: IOffer[] = [];
+  loading: boolean = true;
   movingRight: boolean = false;
   movingLeft: boolean = false;
 
@@ -31,7 +31,12 @@ export class InfiniteCarouselComponent implements OnInit {
   startY: number = 0;
 
   ngOnInit(): void {
-    this.offerService.getData().subscribe(data => this.offers = data);
+    // this.offerService.getData().subscribe(data => this.offers = data);
+    this.offerService.getData().then((offers) => {
+      console.log(offers);
+      this.loading = false
+      this.offers = offers;
+    })
   }
 
   interval = setInterval(() => {
@@ -57,7 +62,7 @@ export class InfiniteCarouselComponent implements OnInit {
     const diffX = currentX - this.startX;
     const diffY = currentY - this.startY;
 
-    if (Math.abs(diffX) > (Math.abs(diffY)-25)) {
+    if (Math.abs(diffX) > (Math.abs(diffY) - 25)) {
       /* prevent default scrolling if horizontal swipe detected */
       event.preventDefault();
     }
