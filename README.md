@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-run `git clone`
+run `git clone https://github.com/KFomin/infinite-carousel.git`
 
 `cd infinite-carousel`
 
