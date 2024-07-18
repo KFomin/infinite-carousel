@@ -3,7 +3,9 @@
 
     <span *ngSwitchCase="true">
       <div class="carousel-container">
-        <div (click)="moveLeft()"
+        <div (touchstart)="touchStarted($event)"
+             (touchmove)="touchMoved($event)"
+             (touchend)="touchEnded($event)"
              *ngFor="let offer of offers"
              [ngClass]="{'movingRight':movingRight , 'movingLeft':movingLeft}"
              class="slider-container"
