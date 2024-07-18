@@ -9,7 +9,7 @@ import {offers} from "../test-data/offers";
 export class OfferService {
   getData(): Observable<IOffer[]> {
     return of(offers).pipe(
-      delay(1500),
+      delay(3000),
       map((a) => {
         return a
       })

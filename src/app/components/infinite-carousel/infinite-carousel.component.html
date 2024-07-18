@@ -3,7 +3,11 @@
 
     <span *ngSwitchCase="true">
       <div class="carousel-container">
-        <div *ngFor="let offer of offers">
+        <div (click)="moveLeft()"
+             *ngFor="let offer of offers"
+             [ngClass]="{'movingRight':movingRight , 'movingLeft':movingLeft}"
+             class="slider-container"
+        >
           <app-slide [offer]="offer"></app-slide>
         </div>
       </div>
