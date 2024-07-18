@@ -30,8 +30,8 @@ export class AppComponent implements OnInit {
           description1: offer.description1,
           highlightedDescription1: offer.offer,
           description2: offer.description2,
-          backgroundImage: offer.imgUrl,
-          mainImage: offer.subImgUrl,
+          backgroundImage: offer.backgoundImage,
+          mainImage: offer.mainImage,
         }
       });
     })
