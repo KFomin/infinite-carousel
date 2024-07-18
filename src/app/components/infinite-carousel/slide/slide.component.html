@@ -1,0 +1,10 @@
+<div class="slide" [ngStyle]="{ 'background-image': 'url(' + slide.backgroundImage + ')'}">
+  <div class="sub-image" [ngStyle]="{ 'background-image': 'url(' + slide.mainImage + ')'}"></div>
+  <h2 class="title">{{ slide.title }}</h2>
+  <div class="description">
+    <ng-container> {{ slide.description1 }}</ng-container>
+    <span class="offer">{{ slide.highlightedDescription1 }}</span>
+    <ng-container>{{ slide.description2 }}</ng-container>
+  </div>
+  <input type="button" class="button" (click)="handleClick()" value="Join now">
+</div>

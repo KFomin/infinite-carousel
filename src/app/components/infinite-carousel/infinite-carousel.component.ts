@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {IOffer} from "../../data/IOffer";
-import {OfferService} from "../../service/offer.service";
+import {Component, Input} from '@angular/core';
 import {NgClass, NgForOf, NgOptimizedImage, NgSwitch, NgSwitchCase} from "@angular/common";
-import {SlideComponent} from "../slide/slide.component";
+import {SlideComponent} from "./slide/slide.component";
+import {ISlide} from "../../data/ISlide";
 
 @Component({
   selector: 'app-infinite-carousel',
@@ -18,50 +17,98 @@ import {SlideComponent} from "../slide/slide.component";
   templateUrl: './infinite-carousel.component.html',
   styleUrl: './infinite-carousel.component.scss'
 })
-export class InfiniteCarouselComponent implements OnInit {
-  constructor(private offerService: OfferService) {
-  }
-  offers: IOffer[] = [];
-  loading: boolean = true;
-  movingRight: boolean = false;
-  movingLeft: boolean = false;
+export class InfiniteCarouselComponent {
+  @Input({required: true}) slides!: ISlide[];
 
-  sliderButtonClicked(sliderButtonData: string){
+  sliderButtonClicked(sliderButtonData: string) {
     console.log(sliderButtonData);
   }
 
-  /* coordinates for swipe handling */
-  startX: number = 0;
-  startY: number = 0;
+  /* track left/right moving animations */
+  movingRight: boolean = false;
+  movingLeft: boolean = false;
 
-  ngOnInit(): void {
-    // this.offerService.getData().subscribe(data => this.offers = data);
-    this.offerService.getData().then((offers) => {
-      this.loading = false
-      this.offers = offers;
-    })
-  }
 
+  /* fire carousel move event every 10 seconds */
   interval = setInterval(() => {
     this.moveRight()
-  }, 99999999)
+  }, 10000)
 
-  pauseInterval: () => void = () => {
+  /* reset interval state */
+  resetInterval: () => void = () => {
     clearInterval(this.interval);
     this.interval = setInterval(() => {
       this.moveRight()
     }, 10000);
   }
 
+  /* carousel controllers */
+  moveRight: () => void = () => {
+    if (!this.movingRight && !this.movingLeft) {
+      /* start animation */
+      this.movingRight = true;
+
+      setTimeout(() => {
+        /* stop animation */
+        this.movingRight = false;
+
+        /* move slides in array */
+        /* first slide goes into the end*/
+        let firstSlide = this.slides.shift();
+        if (firstSlide !== undefined) {
+          this.slides.push(firstSlide);
+        }
+
+        /* reset interval state to avoid double scrolls */
+        this.resetInterval()
+      }, 1000);
+    }
+  }
+
+  moveLeft: () => void = () => {
+    if (!this.movingRight && !this.movingLeft) {
+      /* start animation */
+      this.movingLeft = true;
+
+      setTimeout(() => {
+        /* stop animation */
+        this.movingLeft = false;
+
+        /* move slides in array */
+        /* last slide goes into beginning*/
+        let lastSlide = this.slides.pop();
+
+        if (lastSlide !== undefined) {
+          this.slides.unshift(lastSlide);
+        }
+
+        /* reset interval state to avoid double scrolls */
+        this.resetInterval()
+      }, 1000);
+    }
+  }
+
+  /* Handle swipe event */
+
+  /* coordinates to handle swipe event */
+  startX: number = 0;
+  startY: number = 0;
+
   touchStarted(evt: TouchEvent) {
+
+    /* Horizontal coordinates of starting point */
     this.startX = evt.touches[0].clientX;
+
+    /* Vertical coordinates of starting point */
     this.startY = evt.touches[0].clientY;
   }
 
   touchMoved(event: TouchEvent) {
+    /* Current point of swipe */
     const currentX = event.touches[0].clientX;
     const currentY = event.touches[0].clientY;
 
+    /* Calculat swipe direction */
     const diffX = currentX - this.startX;
     const diffY = currentY - this.startY;
 
@@ -72,9 +119,11 @@ export class InfiniteCarouselComponent implements OnInit {
   }
 
   touchEnded(event: TouchEvent) {
+
     /* swipe sensitivity */
     const threshold = 50;
 
+    /* fire slider event only if swipe was long enough */
     if (Math.abs(this.startX - event.changedTouches[0].clientX) > threshold) {
       if (this.startX - event.changedTouches[0].clientX > 0) {
         this.moveRight()
@@ -82,34 +131,7 @@ export class InfiniteCarouselComponent implements OnInit {
         this.moveLeft()
       }
     }
-  }
 
-  moveRight: () => void = () => {
-    if (!this.movingRight && !this.movingLeft) {
-      this.movingRight = true;
-      setTimeout(() => {
-        this.movingRight = false;
-        let firstOffer = this.offers.shift();
-        if (firstOffer !== undefined) {
-          this.offers.push(firstOffer);
-        }
-        this.pauseInterval()
-      }, 1000);
-    }
-  }
-
-  moveLeft: () => void = () => {
-    if (!this.movingRight && !this.movingLeft) {
-      this.movingLeft = true;
-      setTimeout(() => {
-        this.movingLeft = false;
-        let lastOffer = this.offers.pop();
-        if (lastOffer !== undefined) {
-          this.offers.unshift(lastOffer);
-        }
-        this.pauseInterval()
-      }, 1000);
-    }
   }
 
 }

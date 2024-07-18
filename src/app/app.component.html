@@ -7,7 +7,15 @@
       nisi placeat, quidem quis quos reprehenderit voluptas voluptate?
     </span>
   </p>
-  <app-infinite-carousel></app-infinite-carousel>
+  <!--  CAROUSEL -->
+  <div [ngSwitch]="this.loading">
+    <app-infinite-carousel [slides]="carouselData" *ngSwitchCase="false"></app-infinite-carousel>
+    <div class="loading-carousel" *ngSwitchCase="true">
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+  <!--  -->
   <p class="placeholders">
     <span>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit.

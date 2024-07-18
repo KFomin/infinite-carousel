@@ -6,7 +6,7 @@ import {offers} from "../test-data/offers";
   providedIn: 'root'
 })
 export class OfferService {
-  getData(): Promise<IOffer[]> {
+  getOffers(): Promise<IOffer[]> {
     /* API call with delay */
     return new Promise((resolve) => {
       setTimeout(() => {

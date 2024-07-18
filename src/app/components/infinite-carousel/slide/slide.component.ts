@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgOptimizedImage, NgStyle} from "@angular/common";
-import {IOffer} from "../../data/IOffer";
+import {ISlide} from "../../../data/ISlide";
 
 @Component({
   selector: 'app-slide',
@@ -13,10 +13,10 @@ import {IOffer} from "../../data/IOffer";
   styleUrl: './slide.component.scss'
 })
 export class SlideComponent {
-  @Input({required: true}) offer!: IOffer;
+  @Input({required: true}) slide!: ISlide;
   @Output() buttonClicked = new EventEmitter<string>();
 
   handleClick: () => void = (() => {
-    this.buttonClicked.emit("Button in " + this.offer.title + " clicked")
+    this.buttonClicked.emit("Button in " + this.slide.title + " clicked")
   })
 }
