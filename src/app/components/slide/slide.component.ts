@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgOptimizedImage, NgStyle} from "@angular/common";
 import {IOffer} from "../../data/IOffer";
 
@@ -14,9 +14,9 @@ import {IOffer} from "../../data/IOffer";
 })
 export class SlideComponent {
   @Input({required: true}) offer!: IOffer;
+  @Output() buttonClicked = new EventEmitter<string>();
 
-
-  handleClick:()=>void=(()=>{
-    console.log("click");
+  handleClick: () => void = (() => {
+    this.buttonClicked.emit("Button in " + this.offer.title + " clicked")
   })
 }

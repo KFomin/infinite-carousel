@@ -10,7 +10,7 @@
              [ngClass]="{'movingRight':movingRight , 'movingLeft':movingLeft}"
              class="slider-container"
         >
-          <app-slide [offer]="offer"></app-slide>
+          <app-slide (buttonClicked)="sliderButtonClicked($event)" [offer]="offer"></app-slide>
         </div>
       </div>
     </span>

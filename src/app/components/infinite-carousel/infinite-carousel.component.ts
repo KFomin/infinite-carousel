@@ -26,6 +26,10 @@ export class InfiniteCarouselComponent implements OnInit {
   movingRight: boolean = false;
   movingLeft: boolean = false;
 
+  sliderButtonClicked(sliderButtonData: string){
+    console.log(sliderButtonData);
+  }
+
   /* coordinates for swipe handling */
   startX: number = 0;
   startY: number = 0;
@@ -33,7 +37,6 @@ export class InfiniteCarouselComponent implements OnInit {
   ngOnInit(): void {
     // this.offerService.getData().subscribe(data => this.offers = data);
     this.offerService.getData().then((offers) => {
-      console.log(offers);
       this.loading = false
       this.offers = offers;
     })
