@@ -1,4 +1,4 @@
-<div>
+<ng-container>
   <p class="placeholders">
     <span>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -9,11 +9,9 @@
   </p>
 
   <!--  CAROUSEL -->
-  <div [ngSwitch]="this.loading">
-    <ng-container *ngIf="carouselSlides | async as slides, else loading">
-      <app-infinite-carousel [slides]="slides"></app-infinite-carousel>
-    </ng-container>
-  </div>
+  <ng-container *ngIf="carouselSlides | async as slides, else loading">
+    <app-infinite-carousel [slides]="slides"></app-infinite-carousel>
+  </ng-container>
 
   <ng-template #loading>
     <div class="loading-carousel">
@@ -86,5 +84,5 @@
       nisi placeat, quidem quis quos reprehenderit voluptas voluptate?
     </span>
   </p>
-</div>
+</ng-container>
 
