@@ -4,7 +4,7 @@
          (touchmove)="onTouchMove($event)"
          (touchend)="onTouchEnd($event)"
          *ngFor="let slide of slides"
-         [ngClass]="{'movingRight':movingRight , 'movingLeft':movingLeft}"
+         [ngClass]="moveState"
          class="slide-container"
     >
       <app-slide (buttonClicked)="sliderButtonClicked($event)" [slide]="slide"></app-slide>

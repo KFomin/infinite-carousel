@@ -3,6 +3,8 @@ import {NgClass, NgForOf, NgOptimizedImage, NgSwitch, NgSwitchCase} from "@angul
 import {SlideComponent} from "./slide/slide.component";
 import {ISlide} from "../../data/ISlide";
 
+type moveState = "movingLeft" | "movingRight" | "idle";
+
 @Component({
   selector: 'app-infinite-carousel',
   standalone: true,
@@ -21,13 +23,11 @@ export class InfiniteCarouselComponent implements OnInit {
 
   @Input({required: true}) slides!: ISlide[];
 
-  /* track left/right moving animations */
-  movingRight: boolean = false;
-  movingLeft: boolean = false;
+  moveState: moveState = "idle";
 
   /* fire carousel move event every 10 seconds */
   autoSlideInterval = setInterval(() => {
-    this.moveLeft()
+    this.moveSlide("movingLeft")
   }, 10000)
 
 
@@ -47,49 +47,37 @@ export class InfiniteCarouselComponent implements OnInit {
   resetAutoSlideInterval: () => void = () => {
     clearInterval(this.autoSlideInterval);
     this.autoSlideInterval = setInterval(() => {
-      this.moveLeft()
+      this.moveSlide("movingLeft")
     }, 10000);
   }
 
-  /* carousel controllers */
-  moveLeft: () => void = () => {
-    if (!this.movingRight && !this.movingLeft) {
-      /* start animation */
-      this.movingRight = true;
+  moveSlide: (moveState: moveState) => void = (move: moveState) => {
+    if (this.moveState == "idle") {
+      this.moveState = move;
 
       setTimeout(() => {
-        /* stop animation */
-        this.movingRight = false;
+        /* reset move kind */
+        this.moveState = "idle";
 
-        /* move slides in array */
-        /* first slide goes into the end*/
-        let firstSlide = this.slides.shift();
-        if (firstSlide !== undefined) {
-          this.slides.push(firstSlide);
+        switch (move) {
+          case "movingRight":
+            let lastSlide = this.slides.pop();
+            if (lastSlide !== undefined) {
+              this.slides.unshift(lastSlide);
+            }
+            break;
+
+          case "movingLeft":
+            let firstSlide = this.slides.shift();
+            if (firstSlide !== undefined) {
+              this.slides.push(firstSlide);
+            }
+            break;
+
+          case "idle":
+            break;
         }
 
-        /* reset interval state to avoid double scrolls */
-        this.resetAutoSlideInterval()
-      }, 1000);
-    }
-  }
-
-  moveRight: () => void = () => {
-    if (!this.movingRight && !this.movingLeft) {
-      /* start animation */
-      this.movingLeft = true;
-
-      setTimeout(() => {
-        /* stop animation */
-        this.movingLeft = false;
-
-        /* move slides in array */
-        /* last slide goes into beginning*/
-        let lastSlide = this.slides.pop();
-
-        if (lastSlide !== undefined) {
-          this.slides.unshift(lastSlide);
-        }
 
         /* reset interval state to avoid double scrolls */
         this.resetAutoSlideInterval()
@@ -127,23 +115,20 @@ export class InfiniteCarouselComponent implements OnInit {
   }
 
   onTouchEnd(event: TouchEvent) {
-
     /* swipe sensitivity */
     const threshold = 50;
 
     /* fire slider event only if swipe was long enough */
     if (Math.abs(this.startX - event.changedTouches[0].clientX) > threshold) {
       if (this.startX - event.changedTouches[0].clientX > 0) {
-        this.moveLeft()
+        this.moveSlide("movingLeft")
       } else {
-        this.moveRight()
+        this.moveSlide("movingRight")
       }
     }
-
   }
 
   sliderButtonClicked(sliderButtonData: string) {
     console.log(sliderButtonData);
   }
-
 }

@@ -33,12 +33,12 @@ $max-width: 600px;
     justify-content: center;
   }
 
-  .movingRight {
+  .movingLeft {
     transform: translateX(-100%);
     transition: 1s;
   }
 
-  .movingLeft {
+  .movingRight {
     transform: translateX(100%);
     transition: 1s;
   }
