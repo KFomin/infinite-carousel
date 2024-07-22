@@ -20,17 +20,6 @@ type moveState = "movingLeft" | "movingRight" | "idle";
   styleUrl: './infinite-carousel.component.scss'
 })
 export class InfiniteCarouselComponent implements OnInit {
-
-  @Input({required: true}) slides!: ISlide[];
-
-  moveState: moveState = "idle";
-
-  /* fire carousel move event every 10 seconds */
-  autoSlideInterval = setInterval(() => {
-    this.moveSlide("movingLeft")
-  }, 10000)
-
-
   ngOnInit(): void {
     /* Keep number of slides not lesser than 3 */
     /* To simulate infinite carousel even if there's 1 or 2 slides */
@@ -43,23 +32,30 @@ export class InfiniteCarouselComponent implements OnInit {
     }
   }
 
-  /* reset interval state */
-  resetAutoSlideInterval: () => void = () => {
-    clearInterval(this.autoSlideInterval);
-    this.autoSlideInterval = setInterval(() => {
-      this.moveSlide("movingLeft")
+  @Input({required: true}) slides!: ISlide[];
+
+  moveState: moveState = "idle";
+
+  #automoveCarouselEvery10Seconds = setInterval(() => {
+    this.#moveSlide("movingLeft")
+  }, 10000)
+
+  #resetCarouselAutomoveInterval(): void {
+    clearInterval(this.#automoveCarouselEvery10Seconds);
+    this.#automoveCarouselEvery10Seconds = setInterval(() => {
+      this.#moveSlide("movingLeft")
     }, 10000);
   }
 
-  moveSlide: (moveState: moveState) => void = (move: moveState) => {
+  #moveSlide(moveState: moveState): void {
     if (this.moveState == "idle") {
-      this.moveState = move;
+      this.moveState = moveState;
 
       setTimeout(() => {
         /* reset move kind */
         this.moveState = "idle";
 
-        switch (move) {
+        switch (moveState) {
           case "movingRight":
             let lastSlide = this.slides.pop();
             if (lastSlide !== undefined) {
@@ -80,7 +76,7 @@ export class InfiniteCarouselComponent implements OnInit {
 
 
         /* reset interval state to avoid double scrolls */
-        this.resetAutoSlideInterval()
+        this.#resetCarouselAutomoveInterval()
       }, 1000);
     }
   }
@@ -121,9 +117,9 @@ export class InfiniteCarouselComponent implements OnInit {
     /* fire slider event only if swipe was long enough */
     if (Math.abs(this.startX - event.changedTouches[0].clientX) > threshold) {
       if (this.startX - event.changedTouches[0].clientX > 0) {
-        this.moveSlide("movingLeft")
+        this.#moveSlide("movingLeft")
       } else {
-        this.moveSlide("movingRight")
+        this.#moveSlide("movingRight")
       }
     }
   }
