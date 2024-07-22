@@ -21,6 +21,16 @@ export class InfiniteCarouselComponent implements OnInit {
 
   @Input({required: true}) slides!: ISlide[];
 
+  /* track left/right moving animations */
+  movingRight: boolean = false;
+  movingLeft: boolean = false;
+
+  /* fire carousel move event every 10 seconds */
+  autoSlideInterval = setInterval(() => {
+    this.moveLeft()
+  }, 10000)
+
+
   ngOnInit(): void {
     /* Keep number of slides not lesser than 3 */
     /* To simulate infinite carousel even if there's 1 or 2 slides */
@@ -33,30 +43,16 @@ export class InfiniteCarouselComponent implements OnInit {
     }
   }
 
-  sliderButtonClicked(sliderButtonData: string) {
-    console.log(sliderButtonData);
-  }
-
-  /* track left/right moving animations */
-  movingRight: boolean = false;
-  movingLeft: boolean = false;
-
-
-  /* fire carousel move event every 10 seconds */
-  interval = setInterval(() => {
-    this.moveRight()
-  }, 10000)
-
   /* reset interval state */
-  resetInterval: () => void = () => {
-    clearInterval(this.interval);
-    this.interval = setInterval(() => {
-      this.moveRight()
+  resetAutoSlideInterval: () => void = () => {
+    clearInterval(this.autoSlideInterval);
+    this.autoSlideInterval = setInterval(() => {
+      this.moveLeft()
     }, 10000);
   }
 
   /* carousel controllers */
-  moveRight: () => void = () => {
+  moveLeft: () => void = () => {
     if (!this.movingRight && !this.movingLeft) {
       /* start animation */
       this.movingRight = true;
@@ -73,12 +69,12 @@ export class InfiniteCarouselComponent implements OnInit {
         }
 
         /* reset interval state to avoid double scrolls */
-        this.resetInterval()
+        this.resetAutoSlideInterval()
       }, 1000);
     }
   }
 
-  moveLeft: () => void = () => {
+  moveRight: () => void = () => {
     if (!this.movingRight && !this.movingLeft) {
       /* start animation */
       this.movingLeft = true;
@@ -96,18 +92,17 @@ export class InfiniteCarouselComponent implements OnInit {
         }
 
         /* reset interval state to avoid double scrolls */
-        this.resetInterval()
+        this.resetAutoSlideInterval()
       }, 1000);
     }
   }
 
   /* Handle swipe event */
-
-  /* coordinates to handle swipe event */
+  /* coordinates to track touch locations during swipe */
   startX: number = 0;
   startY: number = 0;
 
-  touchStarted(evt: TouchEvent) {
+  onTouchStart(evt: TouchEvent) {
 
     /* Horizontal coordinates of starting point */
     this.startX = evt.touches[0].clientX;
@@ -116,12 +111,12 @@ export class InfiniteCarouselComponent implements OnInit {
     this.startY = evt.touches[0].clientY;
   }
 
-  touchMoved(event: TouchEvent) {
+  onTouchMove(event: TouchEvent) {
     /* Current point of swipe */
     const currentX = event.touches[0].clientX;
     const currentY = event.touches[0].clientY;
 
-    /* Calculat swipe direction */
+    /* Calculate swipe direction */
     const diffX = currentX - this.startX;
     const diffY = currentY - this.startY;
 
@@ -131,7 +126,7 @@ export class InfiniteCarouselComponent implements OnInit {
     }
   }
 
-  touchEnded(event: TouchEvent) {
+  onTouchEnd(event: TouchEvent) {
 
     /* swipe sensitivity */
     const threshold = 50;
@@ -139,12 +134,16 @@ export class InfiniteCarouselComponent implements OnInit {
     /* fire slider event only if swipe was long enough */
     if (Math.abs(this.startX - event.changedTouches[0].clientX) > threshold) {
       if (this.startX - event.changedTouches[0].clientX > 0) {
-        this.moveRight()
-      } else {
         this.moveLeft()
+      } else {
+        this.moveRight()
       }
     }
 
+  }
+
+  sliderButtonClicked(sliderButtonData: string) {
+    console.log(sliderButtonData);
   }
 
 }

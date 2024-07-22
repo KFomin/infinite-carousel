@@ -1,8 +1,8 @@
 <div class="carousel">
   <div class="carousel-container">
-    <div (touchstart)="touchStarted($event)"
-         (touchmove)="touchMoved($event)"
-         (touchend)="touchEnded($event)"
+    <div (touchstart)="onTouchStart($event)"
+         (touchmove)="onTouchMove($event)"
+         (touchend)="onTouchEnd($event)"
          *ngFor="let slide of slides"
          [ngClass]="{'movingRight':movingRight , 'movingLeft':movingLeft}"
          class="slide-container"
