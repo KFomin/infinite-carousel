@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterOutlet} from '@angular/router';
 import {OfferService} from "./service/offer.service";
 import {InfiniteCarouselComponent} from "./components/infinite-carousel/infinite-carousel.component";
 import {IOffer} from "./data/IOffer";
 import {ISlide} from "./data/ISlide";
-import {of} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -14,21 +13,14 @@ import {of} from "rxjs";
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   constructor(private offerService: OfferService) {
   }
 
-  carouselData: ISlide[] = []
-  loading: boolean = true;
-
-  ngOnInit(): void {
+  carouselSlides: Promise<ISlide[]> =
     this.offerService.getOffers().then((offers: IOffer[]) => {
-      this.loading = false
-      this.carouselData = offers.map((offer: IOffer): ISlide => {
+      return offers.map((offer: IOffer): ISlide => {
         return this.offerService.toSlideData(offer)
       });
-    })
-  }
-
-  title = 'carousel';
+    });
 }

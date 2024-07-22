@@ -7,13 +7,19 @@
       nisi placeat, quidem quis quos reprehenderit voluptas voluptate?
     </span>
   </p>
+
   <!--  CAROUSEL -->
   <div [ngSwitch]="this.loading">
-    <app-infinite-carousel [slides]="carouselData" *ngSwitchCase="false"></app-infinite-carousel>
-    <div class="loading-carousel" *ngSwitchCase="true">
+    <ng-container *ngIf="carouselSlides | async as slides, else loading">
+      <app-infinite-carousel [slides]="slides"></app-infinite-carousel>
+    </ng-container>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading-carousel">
       <div class="spinner"></div>
     </div>
-  </div>
+  </ng-template>
 
   <!--  -->
   <p class="placeholders">
@@ -81,3 +87,4 @@
     </span>
   </p>
 </div>
+
