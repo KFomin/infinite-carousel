@@ -16,7 +16,7 @@ export class SlideComponent {
   @Input({required: true}) slide!: ISlide;
   @Output() buttonClicked = new EventEmitter<string>();
 
-  handleClick: () => void = (() => {
+  handleClick(): void {
     this.buttonClicked.emit("Button in " + this.slide.title + " clicked")
-  })
+  }
 }
