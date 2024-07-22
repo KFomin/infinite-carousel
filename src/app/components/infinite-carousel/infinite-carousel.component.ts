@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NgClass, NgForOf, NgOptimizedImage, NgSwitch, NgSwitchCase} from "@angular/common";
 import {SlideComponent} from "./slide/slide.component";
 import {ISlide} from "../../data/ISlide";
@@ -17,8 +17,21 @@ import {ISlide} from "../../data/ISlide";
   templateUrl: './infinite-carousel.component.html',
   styleUrl: './infinite-carousel.component.scss'
 })
-export class InfiniteCarouselComponent {
+export class InfiniteCarouselComponent implements OnInit {
+
   @Input({required: true}) slides!: ISlide[];
+
+  ngOnInit(): void {
+    /* Keep number of slides not lesser than 3 */
+    /* To simulate infinite carousel even if there's 1 or 2 slides */
+    /* Nothing will display if there's 0 slides */
+    if (this.slides.length == 1) {
+      this.slides.push(this.slides[0], this.slides[0]);
+    }
+    if (this.slides.length == 2) {
+      this.slides.push(this.slides[0]);
+    }
+  }
 
   sliderButtonClicked(sliderButtonData: string) {
     console.log(sliderButtonData);
